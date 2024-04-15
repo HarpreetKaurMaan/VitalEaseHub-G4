@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
+// Define GraphQL mutation for creating a tip
 const CREATE_TIP = gql`
     mutation CreateTip(
         $title: String!
@@ -28,6 +29,7 @@ function CreateTip() {
     const [error, setError] = useState('');
     const [createTipMutation] = useMutation(CREATE_TIP);
 
+    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!title.trim() || !description.trim()) {
@@ -37,7 +39,7 @@ function CreateTip() {
 
         setLoading(true);
         try {
-            await createTipMutation({
+            await createTipMutation({ // Send mutation request to create tip
                 variables: {
                     title,
                     description
@@ -87,4 +89,4 @@ function CreateTip() {
     );
 }
 
-export default CreateTip;
+export default CreateTip; // Export CreateTip component
