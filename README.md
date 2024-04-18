@@ -1,5 +1,5 @@
 # VitalEasehub-G4
-VitalEasehub-G4 is a web application designed for nurse practitioners to efficiently track patient information. It consists of two main components: the backend server (T2-VitalEasehub-backend-server) and the React client (T2-VitalEasehub-client-react).
+VitalEasehub-G4 is a web application designed for nurse practitioners to efficiently track patient information. It consists of two main components: the backend server (VitalEasehub-backend-server) and the React client (VitalEasehub-client-react).
 
 ## Getting Started
 Clone the Repository:
