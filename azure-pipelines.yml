@@ -1,0 +1,52 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  name: 'COMP367-Windows'  
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+# Backend steps
+- script: |
+    cd VitalEaseHub-backend-server
+    npm install
+    npm run build # Ensure this script is defined in your package.json or performs the necessary build steps for your project
+    npm run test -- --coverage
+  displayName: 'Backend: Install dependencies, build, and test'
+
+# Publish backend artifacts
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'VitalEaseHub-backend-server' # Adjust if your build output is in a subfolder
+    ArtifactName: 'backend-artifacts'
+    publishLocation: 'Container'
+  displayName: 'Publish Backend Build Artifacts'
+
+# Frontend steps
+- script: |
+    cd VitalEaseHub-client-react
+    npm install
+    npm run build
+    npm run test:coverage
+  displayName: 'Frontend: Install dependencies, build, and test'
+
+# Publish frontend artifacts
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'VitalEaseHub-client-react' # Adjust if your build output is in a different subfolder
+    ArtifactName: 'frontend-artifacts'
+    publishLocation: 'Container'
+  displayName: 'Publish Frontend Build Artifacts'
